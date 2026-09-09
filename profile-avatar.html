@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Profile Avatar</title>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="Home.html">Home</a>
+      <a href="profile-avatar.html">Profile avatar</a>
+      
+    </nav>
+  </header>
+
+  <main class="profile-container">
+    <section class="profile-card">
+      <div class="profile-header">
+        <div class="avatar-group">
+          <div class="avatar-box" id="avatarBox">
+            <img id="avatarPreview" alt="Avatar preview">
+            <span id="avatarText">DB</span>
+          </div>
+
+          <label class="upload-btn">
+            Chọn ảnh
+            <input type="file" id="avatarInput" accept="image/*">
+          </label>
+        </div>
+
+        <div>
+          <h1>Dao Gia Bao</h1>
+          <p class="subtitle">Frontend Developer</p>
+        </div>
+      </div>
+
+      <div class="intro">
+        <h2>Giới thiệu</h2>
+        <p>
+          Tôi là một lập trình viên trẻ yêu thích thiết kế giao diện và xây dựng trang web
+          thân thiện với người dùng. Tôi đang học tập và nâng cao kỹ năng HTML, CSS và JavaScript.
+        </p>
+      </div>
+
+      <form class="profile-form">
+        <div class="form-group">
+          <label for="country">Chọn quốc gia:</label>
+          <select id="country" name="country">
+            <option value="vietnam">Việt Nam</option>
+            <option value="japan">Nhật Bản</option>
+            <option value="korea">Hàn Quốc</option>
+            <option value="thailand">Thái Lan</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Giới tính:</label>
+          <div class="radio-group">
+            <label><input type="radio" name="gender" value="male"> Nam</label>
+            <label><input type="radio" name="gender" value="female"> Nữ</label>
+            <label><input type="radio" name="gender" value="other"> Khác</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="agree"> Tôi đồng ý chia sẻ thông tin cá nhân
+          </label>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

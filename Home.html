@@ -1,147 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSS Only Component Demo</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <div class="page">
-      <header class="header">
-        <div class="header-inner">
-          <div class="brand" aria-label="Brand name">
-            <span class="brand-mark" aria-hidden="true"></span>
-            <span>ARTISAN</span>
-          </div>
-
-          <!-- Menu toggle is handled with a hidden checkbox and CSS :checked selector -->
-          <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Toggle menu" />
-          <label class="nav-btn" for="nav-toggle" aria-label="Toggle menu">
-            <span></span>
-          </label>
-
-          <nav class="nav" aria-label="Main navigation">
-            <a href="#" class="active">Home</a>
-            <a href="#">About</a>
-            <a href="#">Work</a>
-            <a href="#">Pricing</a>
-            <a href="#">Contact</a>
-          </nav>
-        </div>
-      </header>
-
-      <main>
-        <section class="hero">
-          <div class="hero-copy">
-            <span class="eyebrow">Creative Studio</span>
-            <h1>Designing experiences that feel premium.</h1>
-            <p class="lead">
-              We craft polished digital products with thoughtful interactions,
-              strong visual direction, and clear communication.
-            </p>
-
-            <div class="cta-row">
-              <a href="#" class="btn btn-primary">Start a Project</a>
-              <a href="#" class="btn btn-secondary">View Portfolio</a>
-            </div>
-          </div>
-
-          <aside class="profile-panel" aria-label="Profile summary">
-            <div class="profile-top">
-              <div class="profile-card">
-                <div class="avatar-wrap">
-                  <img
-                    class="avatar"
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
-                    alt="Portrait of a woman"
-                  />
-                </div>
-                <p class="profile-name">Alicia Stone</p>
-                <p class="profile-role">Product Designer</p>
-              </div>
-            </div>
-
-            <div class="profile-info">
-              <div class="stats">
-                <div class="stat-box">
-                  <strong>9+</strong>
-                  <span>Years</span>
-                </div>
-                <div class="stat-box">
-                  <strong>120</strong>
-                  <span>Projects</span>
-                </div>
-              </div>
-            </div>
-          </aside>
-        </section>
-
-        <section class="tabs" aria-label="Profile and avatar tabs">
-          <!-- These radio inputs are the switch mechanism for CSS-only tabs -->
-          <input type="radio" name="tabs" id="tab-profile" checked />
-          <input type="radio" name="tabs" id="tab-avatar" />
-
-          <div class="tab-labels">
-            <label for="tab-profile" class="tab-label label-profile">Profile</label>
-            <label for="tab-avatar" class="tab-label label-avatar">Avatar</label>
-          </div>
-
-          <div class="tab-panels">
-            <article class="tab-panel panel-profile">
-              <h3>Profile Summary</h3>
-              <p>
-                Alicia is a multidisciplinary visual designer focused on elegant
-                interfaces, clear messaging, and user-centered experiences.
-              </p>
-
-              <div class="profile-list">
-                <div class="row"><span>Location</span><strong>Singapore</strong></div>
-                <div class="row"><span>Experience</span><strong>9 years</strong></div>
-                <div class="row"><span>Specialty</span><strong>UI / UX</strong></div>
-              </div>
-            </article>
-
-            <article class="tab-panel panel-avatar">
-              <h3>Avatar Collection</h3>
-              <p>Different circular avatar styles created only with CSS colors and border-radius.</p>
-
-              <div class="avatar-grid" aria-label="Avatar palette">
-                <div class="circle" aria-label="avatar one"></div>
-                <div class="circle" aria-label="avatar two"></div>
-                <div class="circle" aria-label="avatar three"></div>
-                <div class="circle" aria-label="avatar four"></div>
-                <div class="circle" aria-label="avatar five"></div>
-                <div class="circle" aria-label="avatar six"></div>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section class="copyright-wrap">
-          <!-- This is another checkbox-based collapsible section -->
-          <input class="copyright-toggle" type="checkbox" id="copyright-toggle" />
-          <div class="copyright-box">
-            <label class="copyright-label" for="copyright-toggle">
-              <span>Copyright</span>
-              <span class="arrow" aria-hidden="true"></span>
-            </label>
-
-            <div class="copyright-content">
-              <p>
-                © 2026 Artisan Studio. All rights reserved. This demo is created
-                using semantic HTML and CSS only, demonstrating the power of
-                pure front-end styling without JavaScript.
-              </p>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer class="footer">
-        <span>© 2026 Artisan Studio</span>
-        <span>Built with pure HTML and CSS</span>
-      </footer>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Profile Page</title>
+</head>
+<body>
+  <input type="checkbox" id="toggle-state" hidden>
+  <label for="toggle-state" class="toggle-button">
+  <div class="triangle-down"></div>
+  </label>
+  <header class="site-header">
+    <div class="target-content">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="Home.html">Home</a>
+      <a href="profile-avatar.html">Profile avatar</a>
+    </nav>
     </div>
-  </body>
+  </header>
+
+  <main class="profile-container">
+    <section class="profile-card">
+      <div class="profile-header">
+        <div class="avatar">DB</div>
+        <div>
+          <h1>Dao Gia Bao</h1>
+          <p class="subtitle">Frontend Developer</p>
+        </div>
+      </div>
+
+      <div class="intro">
+        <h2>Giới thiệu</h2>
+        <p>
+          Tôi là một lập trình viên trẻ yêu thích thiết kế giao diện và xây dựng trang web
+          thân thiện với người dùng. Tôi đang học tập và nâng cao kỹ năng HTML, CSS và JavaScript.
+        </p>
+      </div>
+
+      <form class="profile-form">
+        <div class="form-group">
+          <label for="country">Chọn quốc gia:</label>
+          <select id="country" name="country">
+            <option value="vietnam">Việt Nam</option>
+            <option value="japan">Nhật Bản</option>
+            <option value="korea">Hàn Quốc</option>
+            <option value="thailand">Thái Lan</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Giới tính:</label>
+          <div class="radio-group">
+            <label><input type="radio" name="gender" value="male"> Nam</label>
+            <label><input type="radio" name="gender" value="female"> Nữ</label>
+            <label><input type="radio" name="gender" value="other"> Khác</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="Checkbox-moto"> Tôi có xe máy 
+            <input type="checkbox" name="Checkbox-oto"> Tôi có oto
+            <input type="checkbox" name="Checkbox-byc"> Tôi có xe đẹp 
+          </label>
+        </div>
+      </form>
+    </section>
+  </main>
+<div class="triangle-wrapper">
+    <input class="toggle-state-up"type="checkbox" id="toggle-state-up" hidden>
+    <label for="toggle-state-up" class="toggle-button-up">
+      <div class="triangle-up"></div>
+    </label>
+  <div class="copyright">© 2026 Dao Gia Bao. All rights reserved.</div>
+    </div>
+
+</body>
 </html>

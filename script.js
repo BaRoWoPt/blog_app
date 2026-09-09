@@ -1,12 +1,23 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const button = document.querySelector('#demo-btn');
-  const message = document.querySelector('#message');
+const avatarInput = document.getElementById('avatarInput');
+const avatarBox = document.getElementById('avatarBox');
+const avatarPreview = document.getElementById('avatarPreview');
+const avatarText = document.getElementById('avatarText');
 
-  if (button && message) {
-    button.addEventListener('click', () => {
-      const name = document.querySelector('#name')?.value || 'bạn';
-      message.textContent = `Xin chào ${name}! Giao diện đã sẵn sàng để phát triển tiếp.`;
-      message.style.color = '#22c55e';
-    });
-  }
-});
+if (avatarInput) {
+  avatarInput.addEventListener('change', function () {
+    const file = this.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        avatarPreview.src = event.target.result;
+        avatarPreview.style.display = 'block';
+        avatarBox.classList.add('has-image');
+        avatarText.style.display = 'none';
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+}
