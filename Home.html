@@ -15,66 +15,87 @@
     <div class="target-content">
     <nav class="main-nav" aria-label="Main navigation">
       <a href="Home.html">Home</a>
-      <a href="profile-avatar.html">Profile avatar</a>
     </nav>
     </div>
   </header>
+  <main class="tabs-page">
+    <div class="tabs-container">
+      <input type="radio" name="tabs" id="tab-profile" checked>
+      <input type="radio" name="tabs" id="tab-avatar">
 
-  <main class="profile-container">
-    <section class="profile-card">
-      <div class="profile-header">
-        <div class="avatar">DB</div>
-        <div>
-          <h1>Dao Gia Bao</h1>
-          <p class="subtitle">Frontend Developer</p>
-        </div>
+      <div class="tab-labels">
+        <label for="tab-profile">Profile</label>
+        <label for="tab-avatar">Avatar</label>
       </div>
 
-      <div class="intro">
-        <h2>Giới thiệu</h2>
-        <p>
-          Tôi là một lập trình viên trẻ yêu thích thiết kế giao diện và xây dựng trang web
-          thân thiện với người dùng. Tôi đang học tập và nâng cao kỹ năng HTML, CSS và JavaScript.
-        </p>
-      </div>
+      <div class="tab-content">
+        <section class="tab-panel profile-panel">
+          <div class="profile-card">
+            <div class="profile-header">
+              <div class="avatar">DB</div>
+              <div>
+                <h1>Dao Gia Bao</h1>
+                <p class="subtitle">Frontend Developer</p>
+              </div>
+            </div>
 
-      <form class="profile-form">
-        <div class="form-group">
-          <label for="country">Chọn quốc gia:</label>
-          <select id="country" name="country">
-            <option value="vietnam">Việt Nam</option>
-            <option value="japan">Nhật Bản</option>
-            <option value="korea">Hàn Quốc</option>
-            <option value="thailand">Thái Lan</option>
-          </select>
-        </div>
+            <div class="intro">
+              <h2>Giới thiệu</h2>
+              <p>
+                Tôi là một lập trình viên trẻ yêu thích thiết kế giao diện và xây dựng trang web
+                thân thiện với người dùng. Tôi đang học tập và nâng cao kỹ năng HTML, CSS và JavaScript.
+              </p>
+            </div>
 
-        <div class="form-group">
-          <label>Giới tính:</label>
-          <div class="radio-group">
-            <label><input type="radio" name="gender" value="male"> Nam</label>
-            <label><input type="radio" name="gender" value="female"> Nữ</label>
-            <label><input type="radio" name="gender" value="other"> Khác</label>
+            <form class="profile-form">
+              <div class="form-group">
+                <label for="country">Chọn quốc gia:</label>
+                <select id="country" name="country">
+                  <option value="vietnam">Việt Nam</option>
+                  <option value="japan">Nhật Bản</option>
+                  <option value="korea">Hàn Quốc</option>
+                  <option value="thailand">Thái Lan</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Giới tính:</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="gender" value="male"> Nam</label>
+                  <label><input type="radio" name="gender" value="female"> Nữ</label>
+                  <label><input type="radio" name="gender" value="other"> Khác</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="Checkbox-moto"> Tôi có xe máy
+                  <input type="checkbox" name="Checkbox-oto"> Tôi có oto
+                  <input type="checkbox" name="Checkbox-byc"> Tôi có xe đẹp
+                </label>
+              </div>
+            </form>
           </div>
-        </div>
+        </section>
 
-        <div class="form-group">
-          <label class="checkbox-label">
-            <input type="checkbox" name="Checkbox-moto"> Tôi có xe máy 
-            <input type="checkbox" name="Checkbox-oto"> Tôi có oto
-            <input type="checkbox" name="Checkbox-byc"> Tôi có xe đẹp 
-          </label>
-        </div>
-      </form>
-    </section>
+        <section class="tab-panel avatar-panel">
+          <div class="profile-card avatar-card">
+            <div class="avatar-box">DB</div>
+            <h2>Avatar</h2>
+            <p>Đây là phần avatar của tôi. Bạn có thể thay đổi hình ảnh và style theo ý thích.</p>
+          </div>
+        </section>
+      </div>
+    </div>
   </main>
-<div class="triangle-wrapper">
-    <input class="toggle-state-up"type="checkbox" id="toggle-state-up" hidden>
+
+  <div class="triangle-wrapper">
+    <input class="toggle-state-up" type="checkbox" id="toggle-state-up" hidden>
     <label for="toggle-state-up" class="toggle-button-up">
       <div class="triangle-up"></div>
     </label>
-  <div class="copyright">© 2026 Dao Gia Bao. All rights reserved.</div>
-    </div>
+    <div class="copyright">© 2026 Dao Gia Bao. All rights reserved.</div>
+  </div>
 
 </body>
 </html>

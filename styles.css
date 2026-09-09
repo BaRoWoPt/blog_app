@@ -164,6 +164,68 @@ input[type="checkbox"] {
   padding: 15px 10px 25px;
 }
 
+.tabs-page {
+  padding: 40px 20px;
+}
+
+.tabs-container {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.tabs-container > input {
+  display: none;
+}
+
+.tab-labels {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-labels label {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #dfe6e9;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+}
+
+#tab-profile:checked ~ .tab-labels label[for="tab-profile"],
+#tab-avatar:checked ~ .tab-labels label[for="tab-avatar"] {
+  background: #2c3e50;
+  color: white;
+}
+
+.tab-panel {
+  display: none;
+}
+
+#tab-profile:checked ~ .tab-content .profile-panel,
+#tab-avatar:checked ~ .tab-content .avatar-panel {
+  display: block;
+}
+
+.avatar-card {
+  text-align: center;
+}
+
+.avatar-box {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8e44ad, #3498db);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 #toggle-state-up:checked ~ .copyright {
   display: block;
 }
