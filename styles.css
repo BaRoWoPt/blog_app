@@ -148,6 +148,34 @@ select {
   gap: 8px;
 }
 
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.error-message {
+  min-height: 20px;
+  color: #d63031;
+  font-size: 14px;
+  margin: 8px 0 0;
+}
+
+button {
+  background: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+}
+
 input[type="radio"],
 input[type="checkbox"] {
   accent-color: #8e44ad;
@@ -174,7 +202,7 @@ input[type="checkbox"] {
 }
 
 .tabs-container > input {
-  display: none;
+  display: none ;
 }
 
 .tab-labels {
@@ -200,7 +228,7 @@ input[type="checkbox"] {
 }
 
 .tab-panel {
-  display: none;
+  display: none ;
 }
 
 #tab-profile:checked ~ .tab-content .profile-panel,
@@ -224,6 +252,60 @@ input[type="checkbox"] {
   justify-content: center;
   font-size: 2rem;
   font-weight: bold;
+  overflow: hidden;
+}
+
+.avatar-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.upload-box {
+  margin-top: 20px;
+}
+
+.drop-zone {
+  border: 2px dashed #8e44ad;
+  border-radius: 12px;
+  padding: 20px 15px;
+  background: #f6f1fa;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.drop-zone.dragover {
+  background: #e9d7f7;
+  border-color: #5e2b87;
+  transform: scale(1.01);
+}
+
+.upload-label {
+  display: inline-block;
+  background: #2c3e50;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#avatarUpload {
+  display: none;
+}
+
+.drop-zone p {
+  margin: 10px 0 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.file-error {
+  min-height: 20px;
+  margin-top: 10px;
+  color: #d63031;
+  font-size: 14px;
 }
 
 #toggle-state-up:checked ~ .copyright {
