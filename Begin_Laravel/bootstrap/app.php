@@ -12,8 +12,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\EnsureAdminAccess::class,
+        ]);
     })
+    ->withMiddleware(function (Middleware $middleware) {
+    $middleware->alias([
+        'check.blog.id' => \App\Http\Middleware\CheckBlogIdIsInteger::class,
+    ]);
+})
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
