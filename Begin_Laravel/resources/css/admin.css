@@ -1,0 +1,60 @@
+.admin-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.admin-page-header {
+    margin-bottom: 0;
+}
+
+.admin-page .blog-form,
+.admin-page .manage-card {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 18px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+}
+
+.admin-page .blog-form {
+    padding: 22px 24px;
+}
+
+.admin-page .blog-form label,
+.admin-page .inline-form label {
+    font-weight: 600;
+    color: #0f172a;
+    margin-top: 8px;
+}
+
+.admin-page .blog-form input,
+.admin-page .blog-form textarea,
+.admin-page .inline-form input,
+.admin-page .inline-form textarea {
+    border: 1px solid rgba(148, 163, 184, 0.8);
+    border-radius: 12px;
+    background: #fff;
+}
+
+.admin-page h2 {
+    margin: 0;
+    color: #0f172a;
+}
+
+.admin-page .manage-card {
+    padding: 24px;
+}
+
+.admin-page .manage-card h3 {
+    margin: 0 0 18px;
+    font-size: 1.4rem;
+    color: #0f172a;
+}
+
+.admin-page .inline-form {
+    gap: 12px;
+}
+
+.admin-page .delete-form {
+    margin-top: 14px;
+}
