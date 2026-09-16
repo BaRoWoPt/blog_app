@@ -11,8 +11,7 @@
     <header class="site-header">
         <div class="container header-inner">
             <a href="{{ url('/') }}" class="brand" aria-label="Trang chủ blog">
-                <span class="logo">Z</span>
-                <span class="brand-text">ZIGExN</span>
+                <img class="logo" src="https://zigexn.vn/images/logo.svg" alt="ZIGExN">
             </a>
 
             <nav class="main-nav" aria-label="Điều hướng chính">

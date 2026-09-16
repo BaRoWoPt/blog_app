@@ -12,7 +12,7 @@
             <h1>Quản lý blog</h1>
         </section>
 
-        <form method="POST" action="{{ route('blogs.store') }}" class="blog-form">
+        <form method="POST" action="{{ route('blogs.store') }}" enctype="multipart/form-data" class="blog-form">
             @csrf
 
             <label for="title">Tiêu đề</label>
@@ -24,6 +24,9 @@
             <label for="author">Tác giả</label>
             <input id="author" name="author" type="text" value="{{ old('author') }}">
 
+            <label for="image">Ảnh bài viết</label>
+            <input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp">
+
             <button type="submit" class="primary-btn">Thêm bài viết</button>
         </form>
 
@@ -33,7 +36,11 @@
             <article class="blog-card manage-card">
                 <h3>{{ $blog->title }}</h3>
 
-                <form method="POST" action="{{ route('blogs.update', $blog) }}" class="inline-form">
+                @if ($blog->image_path)
+                    <img src="{{ asset('storage/' . $blog->image_path) }}" alt="{{ $blog->title }}" class="blog-image">
+                @endif
+
+                <form method="POST" action="{{ route('blogs.update', $blog) }}" enctype="multipart/form-data" class="inline-form">
                     @csrf
                     @method('PUT')
 
@@ -59,6 +66,9 @@
                         value="{{ $blog->author }}"
                     >
 
+                    <label for="image-{{ $blog->id }}">Thay ảnh</label>
+                    <input id="image-{{ $blog->id }}" name="image" type="file" accept=".jpg,.jpeg,.png,.webp">
+
                     <button type="submit" class="secondary-btn">Cập nhật</button>
                 </form>
 
@@ -74,3 +84,4 @@
         @endforelse
     </div>
 @endsection
+

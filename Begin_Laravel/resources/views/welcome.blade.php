@@ -15,6 +15,10 @@
 
         @forelse ($blogs as $blog)
             <article class="blog-card">
+                @if ($blog->image_path)
+                    <img src="{{ asset('storage/' . $blog->image_path) }}" alt="{{ $blog->title }}" class="blog-image">
+                @endif
+
                 <h2>{{ $blog->title }}</h2>
                 <p>{{ $blog->content }}</p>
 
