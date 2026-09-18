@@ -29,5 +29,6 @@
         @empty
             <p class="empty-state">Chưa có bài viết nào.</p>
         @endforelse
+{{ $blogs->links('pagination::bootstrap-5') }}
     </div>
 @endsection
