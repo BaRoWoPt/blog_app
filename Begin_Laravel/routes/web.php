@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\BlogController;
+use App\Http\Middleware\ValidateBlogId;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,4 +16,4 @@ Route::prefix('admin')->name('blogs.')->group(function () {
 
 Route::get('/blog/{id}', function ($id) {
     return "Blog ID hợp lệ: " . $id;
-})->middleware('check.blog.id');
+})->middleware(ValidateBlogId::class);

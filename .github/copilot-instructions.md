@@ -1,31 +1,24 @@
-GitHub Copilot Workflow & Engineering Instructions for Harness Standard
-1. Operating Workflow & Interaction Protocol (Strict Enforcement)
+Project Context for GitHub Copilot
+Mục đích dự án
 
-Copilot must adhere to a strict 4-phase protocol for all requests requiring code changes, refactoring, or pipeline updates:
+Đây là project training Laravel nội bộ, mục tiêu là học và thực hành để tự xây dựng được 1 ứng dụng CRUD hoàn chỉnh theo lộ trình training của công ty (Setup ENV → Git → HTML/CSS/JS → SQL → PHP → Laravel overview → Routing/Controller → View/Blade → Middleware → Database → Eloquent ORM → Validation → Collection/Helper → Session/Cookie → Authentication → Mail → Command/Scheduling → Queue → ...).
 
-Phase 1: Methodology & Explanation (First Turn)
-Câu hỏi (Clarify first): If the request is missing key information (which stage/service/module is affected, whether production is impacted), ask a clarifying question before explaining anything.
-Explain the technical rationale, architectural considerations, and Harness-specific conventions that apply to the request.
-Detail the trade-offs and constraints before proposing implementations.
-Phase 2: Proposal & User Confirmation (No Auto-execution)
-Provide 2–3 distinct actionable implementation options (e.g., Option A: Minimalist/Fast vs. Option B: Scalable/Full Canary).
-Stop and wait for the user's explicit confirmation and selection before generating functional codebase modifications.
-Phase 2.5: Tối ưu (Optimize the Selected Option)
-Once an option is selected, before writing any code, review it for ways to reduce blast radius, remove unnecessary dependencies, or simplify without changing the outcome.
-Confirm the selected option still satisfies the relevant Harness & Engineering Standards (Section 2) before moving to execution.
-Phase 3: Execution & Impact Analysis (Post-Approval)
-Once the user confirms the plan, output the exact code changes.
-Concurrently conduct an Impact Assessment covering:
-Breaking changes or regression risks on other modules/services.
-Dependencies on downstream Harness stages, connectors, or environment variables.
-Compatibility with existing automated test suites.
-Phase 4: Change Summary & Verification
-Summarize what was changed, file-by-file.
-Provide clear verification commands (unit tests, smoke tests, health probes) to confirm successful deployment without regressions.
-2. Harness & Engineering Standards
-Secrets Hygiene: Never output plaintext credentials or tokens. Always utilize <+secrets.getValue("...")> or system environment variables.
-Idempotency & Safety: All automation scripts must be re-runnable without unintended side effects. Scripts must include defensive flags (set -euo pipefail).
-Observability: Emit structured logs to support Harness Automated Verification and Log Analysis.
-Pipeline Integrity: Pin all container tags (avoid latest) and define explicit resource requests/limits (cpu, memory).
-Feature Flags (Harness FF): Ensure safe fallback defaults and attach explicit context targets (Target(identifier=..., attributes=...)).
-Health Probes: Always include or maintain /healthz and /ready endpoints to safeguard Harness Canary and Blue/Green rollout/rollback mechanisms.
+Người code là người đang học Laravel — ưu tiên code rõ ràng, dễ hiểu, đúng convention chuẩn của framework hơn là tối ưu/thủ thuật phức tạp.
+
+Stack
+Laravel (PHP), Blade templates (không dùng React/Vue cho phần view)
+MySQL, chạy qua Docker
+Quản lý DB bằng TablePlus
+Coding convention
+Chưa có pint.json hoặc .editorconfig riêng trong project → dùng convention mặc định của Laravel, tương đương chuẩn PSR-12(4-space indent, PascalCase cho class, camelCase cho method/biến, của method xuống dòng riêng)
+Đặt tên bảng database theo số nhiều (ví dụ: users, orders, products)
+Model tương ứng viết số ít (ví dụ: bảng users → Model User)
+Controller dùng resource methods chuẩn REST (index, create, store, show, edit, update, destroy)
+Validation nên tách ra Form Request class thay vì validate inline trong Controller
+Cách hỗ trợ khi trả lời/code
+Khi sinh code, ưu tiên cách làm "chuẩn Laravel" (theo docs chính thức) để đúng mục tiêu học, tránh dùng package ngoài không cần thiết trừ khi được yêu cầu
+Khi giải thích, giải thích ngắn gọn tại sao code viết như vậy, không chỉ đưa code
+Testing (PHPUnit) chưa được dùng trong project — nếu gợi ý thêm test, giải thích đơn giản, từng bước, vì đây là phần đang bắt đầu học
+Lưu ý về ngữ cảnh khi làm việc liên tục
+Mỗi khi bắt đầu yêu cầu mới trong cùng phiên làm việc, nêu rõ trạng thái hiện tại (phần nào đã xong, đang làm phần nào) để tránh lặp lại việc đã hoàn thành trước đó
+Không tự ý sửa lại các phần code đã hoàn thành và đã test OK trừ khi được yêu cầu rõ

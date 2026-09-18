@@ -21,8 +21,14 @@ return Application::configure(basePath: dirname(__DIR__))
         'check.blog.id' => \App\Http\Middleware\CheckBlogIdIsInteger::class,
     ]);
 })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->shouldRenderJsonWhen(
-            fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
-        );
-    })->create();
+->withMiddleware(function (Middleware $middleware) {
+    $middleware->alias([
+        'token.availd' => \App\Http\Middleware\TokenAvaild::class,
+    ]);
+})
+->withExceptions(function (Exceptions $exceptions): void {
+    $exceptions->shouldRenderJsonWhen(
+        fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
+    );
+})->create();
+
