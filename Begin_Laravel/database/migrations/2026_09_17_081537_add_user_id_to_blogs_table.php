@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('blogs', function (Blueprint $table) {
-            $table -> foreignId('user_id')
-            -> after('id')
-            -> constrained('users')
-            -> cascadeOnDelete();
+            $table->foreignId('user_id')
+                ->nullable()
+                ->after('id')
+                ->constrained('users')
+                ->cascadeOnDelete();
         });
     }
 
