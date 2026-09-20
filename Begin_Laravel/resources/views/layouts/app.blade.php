@@ -16,7 +16,16 @@
 
             <nav class="main-nav" aria-label="Điều hướng chính">
                 <a href="{{ url('/') }}">Trang chủ</a>
-                <a href="{{ route('blogs.manage') }}">Quản lý blog</a>
+
+                @auth
+                    <a href="{{ route('blogs.index') }}">Quản lý blog</a>
+                    <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                        @csrf
+                        <button type="submit" class="link-btn">Đăng xuất</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}">Đăng nhập</a>
+                @endauth
             </nav>
         </div>
     </header>

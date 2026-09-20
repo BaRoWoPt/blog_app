@@ -10,7 +10,11 @@
 	<div class="home-page">
 		<section class="home-page-header">
 			<h1>Bài viết mới nhất</h1>
-			<a href="{{ route('blogs.manage') }}" class="primary-btn">Quản lý blog</a>
+			@auth
+				<a href="{{ route('blogs.index') }}" class="primary-btn">Quản lý blog</a>
+			@else
+				<a href="{{ route('login') }}" class="primary-btn">Đăng nhập</a>
+			@endauth
 		</section>
 
 		@forelse ($blogs as $blog)

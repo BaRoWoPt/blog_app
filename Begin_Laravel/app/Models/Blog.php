@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,5 +8,9 @@ class Blog extends Model{
         'content',
         'author',
         'image_path',
+        'user_id',
     ];
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

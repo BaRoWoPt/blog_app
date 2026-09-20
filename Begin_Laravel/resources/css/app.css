@@ -102,6 +102,25 @@ body {
     font-size: 0.95rem;
 }
 
+.logout-form {
+    display: inline;
+    margin: 0;
+}
+
+.link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #000000;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.link-btn:hover {
+    color: var(--primary);
+}
+
 .page-content {
     flex: 1;
     padding: 32px 0 48px;
