@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\ValidateBlogId;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,24 +12,19 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    // ->withMiddleware(function (Middleware $middleware): void {
-    //     $middleware->alias([
-    //         'admin' => \App\Http\Middleware\EnsureAdminAccess::class,
-    //     ]);
-    // })
-    ->withMiddleware(function (Middleware $middleware) {
-    $middleware->alias([
-        'check.blog.id' => \App\Http\Middleware\CheckBlogIdIsInteger::class,
-    ]);
-})
-->withMiddleware(function (Middleware $middleware) {
-    $middleware->alias([
-        'token.availd' => \App\Http\Middleware\TokenAvaild::class,
-    ]);
-})
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\EnsureAdminAccess::class,
+        ]);
+    })
+
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'validate_blog_id' => ValidateBlogId::class,
+        ]);
+    })
 ->withExceptions(function (Exceptions $exceptions): void {
     $exceptions->shouldRenderJsonWhen(
         fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
     );
 })->create();
-
