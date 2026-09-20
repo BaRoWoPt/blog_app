@@ -1,13 +1,12 @@
 <?php
+
 use App\Http\Controllers\BlogController;
 use App\Http\Middleware\ValidateBlogId;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [BlogController::class, 'index'])->name('home');
 
-Route::get('/', [BlogController::class, 'index']);
-
-// Gom nhóm các route quản lý admin
-Route::prefix('admin')->name('blogs.')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('blogs.')->group(function () {
     Route::get('/blogs', [BlogController::class, 'manage'])->name('manage');
     Route::post('/blogs', [BlogController::class, 'store'])->name('store');
     Route::put('/blogs/{blog}', [BlogController::class, 'update'])->name('update');
@@ -15,5 +14,6 @@ Route::prefix('admin')->name('blogs.')->group(function () {
 });
 
 Route::get('/blog/{id}', function ($id) {
-    return "Blog ID hợp lệ: " . $id;
+    return "Blog ID hợp lệ: {$id}";
 })->middleware(ValidateBlogId::class);
+

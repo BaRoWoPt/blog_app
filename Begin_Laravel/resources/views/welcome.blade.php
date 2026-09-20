@@ -1,34 +1,36 @@
 @extends('layouts.app')
 
-@section('title', 'Trang chủ blog')
+@section('title', 'Bài viết')
 
 @push('styles')
-    @vite(['resources/css/home.css'])
+	@vite(['resources/css/home.css'])
 @endpush
 
 @section('content')
-    <div class="home-page">
-        <section class="page-header home-page-header">
-            <h1>Danh sách bài viết</h1>
-            <a href="{{ route('blogs.manage') }}" class="primary-btn">Thêm bài viết mới</a>
-        </section>
+	<div class="home-page">
+		<section class="home-page-header">
+			<h1>Bài viết mới nhất</h1>
+			<a href="{{ route('blogs.manage') }}" class="primary-btn">Quản lý blog</a>
+		</section>
 
-        @forelse ($blogs as $blog)
-            <article class="blog-card">
-                @if ($blog->image_path)
-                    <img src="{{ asset('storage/' . $blog->image_path) }}" alt="{{ $blog->title }}" class="blog-image">
-                @endif
+		@forelse ($blogs as $blog)
+			<article class="blog-card">
+				<h2>{{ $blog->title }}</h2>
 
-                <h2>{{ $blog->title }}</h2>
-                <p>{{ $blog->content }}</p>
+				@if ($blog->image_path)
+					<img src="{{ asset('storage/' . $blog->image_path) }}" alt="{{ $blog->title }}" class="blog-image">
+				@endif
 
-                @if ($blog->author)
-                    <small>Tác giả: {{ $blog->author }}</small>
-                @endif
-            </article>
-        @empty
-            <p class="empty-state">Chưa có bài viết nào.</p>
-        @endforelse
-{{ $blogs->links('pagination::bootstrap-5') }}
-    </div>
+				<p>{{ $blog->content }}</p>
+				<small>
+					{{ $blog->author ?: 'Ẩn danh' }}
+					· {{ $blog->created_at?->format('d/m/Y') }}
+				</small>
+			</article>
+		@empty
+			<p class="empty-state">Chưa có bài viết nào.</p>
+		@endforelse
+
+		{{ $blogs->links() }}
+	</div>
 @endsection
