@@ -12,7 +12,7 @@
             <h1>Thêm bài viết mới</h1>
         </section>
 
-        <form method="POST" action="{{ route('blogs.store') }}" enctype="multipart/form-data" class="blog-form">
+        <form method="POST" action="{{ route('my-blogs.store') }}" enctype="multipart/form-data" class="blog-form">
             @csrf
 
             <label for="name">Tiêu đề</label>

@@ -12,7 +12,7 @@
             <h1>Sửa bài viết</h1>
         </section>
 
-        <form method="POST" action="{{ route('blogs.update', $blog) }}" enctype="multipart/form-data" class="blog-form">
+        <form method="POST" action="{{ route('my-blogs.update', $blog) }}" enctype="multipart/form-data" class="blog-form">
             @csrf
             @method('PUT')
 

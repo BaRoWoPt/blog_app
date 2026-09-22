@@ -23,8 +23,10 @@
                         (Vai trò: <em>{{ Auth::user()->role }}</em>)
                     </span>
 
+                    <a href="{{ route('my-blogs.index') }}">Bài viết của tôi</a>
+
                     @if (Auth::user()->isAdmin())
-                        <a href="{{ route('blogs.index') }}" class="admin-link">Trang quản trị</a>
+                        <a href="{{ route('admin.blogs.index') }}" class="admin-link">Quản trị bài viết (Admin)</a>
                     @endif
 
                     <form method="POST" action="{{ route('logout') }}" style="display: inline;">
@@ -39,12 +41,18 @@
     </header>
 
     <main class="container page-content">
+        @if (session('success'))
+            <div style="background-color: #d1fae5; color: #065f46; padding: 12px 16px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #a7f3d0;">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @yield('content')
     </main>
 
     <footer class="site-footer">
         <div class="container">
-            © ZIGExN VeNtura@2025
+            © ZIGExN VeNtura@2026
         </div>
     </footer>
 </body>
