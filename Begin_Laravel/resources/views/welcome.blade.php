@@ -10,27 +10,27 @@
 	<div class="home-page">
 		<section class="home-page-header">
 			<h1>Bài viết mới nhất</h1>
-			@auth
-				<a href="{{ route('blogs.index') }}" class="primary-btn">Quản lý blog</a>
-			@else
-				<a href="{{ route('login') }}" class="primary-btn">Đăng nhập</a>
-			@endauth
+			<a href="{{ route('blogs.index') }}" class="primary-btn">Quản lý blog</a>
 		</section>
 
 		@forelse ($blogs as $blog)
 			<article class="blog-card">
-				<h2>{{ $blog->title }}</h2>
+				<h2>
+                    <a href="{{ route('blog.show', $blog) }}">{{ $blog->name }}</a>
+                </h2>
+                @if ($blog->category)
+                    <span class="category-badge">{{ $blog->category->name }}</span>
+                @endif
+                @if ($blog->thumbnail)
+                    <img src="{{ asset('storage/' . $blog->thumbnail) }}" alt="{{ $blog->name }}" class="blog-image">
+                @endif
 
-				@if ($blog->image_path)
-					<img src="{{ asset('storage/' . $blog->image_path) }}" alt="{{ $blog->title }}" class="blog-image">
-				@endif
-
-				<p>{{ $blog->content }}</p>
-				<small>
-					{{ $blog->author ?: 'Ẩn danh' }}
-					· {{ $blog->created_at?->format('d/m/Y') }}
-				</small>
-			</article>
+                <p>{{ Str::limit($blog->description, 150) }}</p>
+                <small>
+                    {{ $blog->author ?: 'Ẩn danh' }}
+                    · {{ $blog->created_at?->format('d/m/Y') }}
+                </small>
+            </article>
 		@empty
 			<p class="empty-state">Chưa có bài viết nào.</p>
 		@endforelse

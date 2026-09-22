@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('blogs.index'));
+        return redirect()->intended(route('home'));
     }
 
     public function logout(Request $request)

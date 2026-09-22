@@ -16,17 +16,26 @@
             @csrf
             @method('PUT')
 
-            <label for="title">Tiêu đề</label>
-            <input id="title" name="title" type="text" value="{{ old('title', $blog->title) }}">
+            <label for="name">Tiêu đề</label>
+            <input id="name" name="name" type="text" value="{{ old('name', $blog->name) }}">
+            @error('name')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
 
-            <label for="content">Nội dung</label>
-            <textarea id="content" name="content">{{ old('content', $blog->content) }}</textarea>
+            <label for="description">Nội dung</label>
+            <textarea id="description" name="description">{{ old('description', $blog->description) }}</textarea>
+            @error('description')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
 
             <label for="author">Tác giả</label>
             <input id="author" name="author" type="text" value="{{ old('author', $blog->author) }}">
 
-            <label for="image">Thay ảnh</label>
-            <input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp">
+            <label for="thumbnail">Thay ảnh</label>
+            <input id="thumbnail" name="thumbnail" type="file" accept=".jpg,.jpeg,.png,.webp">
+            @error('thumbnail')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
 
             <button type="submit" class="secondary-btn">Cập nhật</button>
         </form>

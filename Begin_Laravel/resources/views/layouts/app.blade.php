@@ -18,10 +18,18 @@
                 <a href="{{ url('/') }}">Trang chủ</a>
 
                 @auth
-                    <a href="{{ route('blogs.index') }}">Quản lý blog</a>
-                    <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                    <span class="user-greeting">
+                        Xin chào, <strong>{{ Auth::user()->name }}</strong>
+                        (Vai trò: <em>{{ Auth::user()->role }}</em>)
+                    </span>
+
+                    @if (Auth::user()->isAdmin())
+                        <a href="{{ route('blogs.index') }}" class="admin-link">Trang quản trị</a>
+                    @endif
+
+                    <form method="POST" action="{{ route('logout') }}" style="display: inline;">
                         @csrf
-                        <button type="submit" class="link-btn">Đăng xuất</button>
+                        <button type="submit" class="logout-btn">Đăng xuất</button>
                     </form>
                 @else
                     <a href="{{ route('login') }}">Đăng nhập</a>

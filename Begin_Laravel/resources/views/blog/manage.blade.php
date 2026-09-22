@@ -15,17 +15,37 @@
         <form method="POST" action="{{ route('blogs.store') }}" enctype="multipart/form-data" class="blog-form">
             @csrf
 
-            <label for="title">Tiêu đề</label>
-            <input id="title" name="title" type="text" value="{{ old('title') }}">
+            <label for="name">Tiêu đề</label>
+            <input id="name" name="name" type="text" value="{{ old('name') }}">
+            @error('name')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
 
-            <label for="content">Nội dung</label>
-            <textarea id="content" name="content">{{ old('content') }}</textarea>
+            <label for="description">Nội dung</label>
+            <textarea id="description" name="description">{{ old('description') }}</textarea>
+            @error('description')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
 
             <label for="author">Tác giả</label>
             <input id="author" name="author" type="text" value="{{ old('author') }}">
-
-            <label for="image">Ảnh bài viết</label>
-            <input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp">
+            <label for="category_id">Danh mục</label>
+            <select id="category_id" name="category_id">
+                <option value="">Chọn danh mục</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('category_id')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
+            <label for="thumbnail">Ảnh bài viết</label>
+            <input id="thumbnail" name="thumbnail" type="file" accept=".jpg,.jpeg,.png,.webp">
+            @error('thumbnail')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
 
             <button type="submit" class="primary-btn">Thêm bài viết</button>
         </form>
@@ -34,29 +54,29 @@
 
         @forelse ($blogs as $blog)
             <article class="blog-card manage-card">
-                <h3>{{ $blog->title }}</h3>
+                <h3>{{ $blog->name }}</h3>
 
-                @if ($blog->image_path)
-                    <img src="{{ asset('storage/' . $blog->image_path) }}" alt="{{ $blog->title }}" class="blog-image">
+                @if ($blog->thumbnail)
+                    <img src="{{ asset('storage/' . $blog->thumbnail) }}" alt="{{ $blog->name }}" class="blog-image">
                 @endif
 
                 <form method="POST" action="{{ route('blogs.update', $blog) }}" enctype="multipart/form-data" class="inline-form">
                     @csrf
                     @method('PUT')
 
-                    <label for="title-{{ $blog->id }}">Tiêu đề</label>
+                    <label for="name-{{ $blog->id }}">Tiêu đề</label>
                     <input
-                        id="title-{{ $blog->id }}"
-                        name="title"
+                        id="name-{{ $blog->id }}"
+                        name="name"
                         type="text"
-                        value="{{ $blog->title }}"
+                        value="{{ $blog->name }}"
                     >
 
-                    <label for="content-{{ $blog->id }}">Nội dung</label>
+                    <label for="description-{{ $blog->id }}">Nội dung</label>
                     <textarea
-                        id="content-{{ $blog->id }}"
-                        name="content"
-                    >{{ $blog->content }}</textarea>
+                        id="description-{{ $blog->id }}"
+                        name="description"
+                    >{{ $blog->description }}</textarea>
 
                     <label for="author-{{ $blog->id }}">Tác giả</label>
                     <input
@@ -66,8 +86,8 @@
                         value="{{ $blog->author }}"
                     >
 
-                    <label for="image-{{ $blog->id }}">Thay ảnh</label>
-                    <input id="image-{{ $blog->id }}" name="image" type="file" accept=".jpg,.jpeg,.png,.webp">
+                    <label for="thumbnail-{{ $blog->id }}">Thay ảnh</label>
+                    <input id="thumbnail-{{ $blog->id }}" name="thumbnail" type="file" accept=".jpg,.jpeg,.png,.webp">
 
                     <button type="submit" class="secondary-btn">Cập nhật</button>
                 </form>

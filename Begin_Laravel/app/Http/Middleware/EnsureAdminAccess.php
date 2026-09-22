@@ -14,7 +14,7 @@ class EnsureAdminAccess
     {
         // Ví dụ demo middleware: chỉ cho phép truy cập nếu có query param ?admin=1
         // Bạn có thể thay bằng auth check thực tế sau này.
-        if (! $request->boolean('admin')) {
+        if (! $request->user() || ! $request->user()->isAdmin()) {
             abort(403, 'Bạn không có quyền truy cập khu vực admin.');
         }
 

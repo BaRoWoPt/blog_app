@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
@@ -13,12 +14,14 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::latest()->get();
-        return view('blog.manage', compact('blogs'));
+        $categories = Category::all();
+        return view('blog.manage', compact('blogs', 'categories'));
     }
 
     public function create()
     {
-        return view('blog.create');
+        $categories = Category::all();
+        return view('blog.create', compact('categories'));
     }
 
     public function show(Blog $blog)
@@ -28,17 +31,17 @@ class BlogController extends Controller
 
     public function edit(Blog $blog)
     {
-        return view('blog.edit', compact('blog'));
+        $categories = Category::all();
+        return view('blog.edit', compact('blog', 'categories'));
     }
 
     public function store(StoreBlogRequest $request)
     {
         $validated = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $validated['image_path'] = $request->file('image')->store('blog-images', 'public');
+        if ($request->hasFile('thumbnail')) {
+            $validated['thumbnail'] = $request->file('thumbnail')->store('blog-images', 'public');
         }
-        unset($validated['image']);
 
         $request->user()->blogs()->create($validated); // tự gán user_id
 
@@ -49,13 +52,14 @@ class BlogController extends Controller
     {
         $validated = $request->validated();
 
-        if ($request->hasFile('image')) {
-            if ($blog->image_path) {
-                Storage::disk('public')->delete($blog->image_path);
+        if ($request->hasFile('thumbnail')) {
+            if ($blog->thumbnail) {
+                Storage::disk('public')->delete($blog->thumbnail);
             }
-            $validated['image_path'] = $request->file('image')->store('blog-images', 'public');
+            $validated['thumbnail'] = $request->file('thumbnail')->store('blog-images', 'public');
+        } else {
+            unset($validated['thumbnail']);
         }
-        unset($validated['image']);
 
         $blog->update($validated);
 
@@ -64,8 +68,8 @@ class BlogController extends Controller
 
     public function destroy(Blog $blog)
     {
-        if ($blog->image_path) {
-            Storage::disk('public')->delete($blog->image_path);
+        if ($blog->thumbnail) {
+            Storage::disk('public')->delete($blog->thumbnail);
         }
 
         $blog->delete();
