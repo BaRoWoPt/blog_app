@@ -20,4 +20,5 @@ class EnsureAdminAccess
 
         return $next($request);
     }
+
 }

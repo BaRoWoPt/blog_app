@@ -21,5 +21,9 @@
 
             <button type="submit" class="primary-btn">Đăng nhập</button>
         </form>
+
+        <p style="margin-top: 16px; text-align: center; color: #4b5563;">
+            Chưa có tài khoản? <a href="{{ route('signup') }}" style="color: #2563eb; text-decoration: underline;">Đăng ký ngay</a>
+        </p>
     </div>
 @endsection

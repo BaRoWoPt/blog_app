@@ -35,7 +35,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Blog::class);
     }
-    public function IsAdmin(): bool
+    public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }

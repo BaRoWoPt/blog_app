@@ -10,9 +10,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BlogController::class, 'index'])->name('home');
 Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('blog.show');
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+    Route::get('/register', [AuthController::class, 'showSignupForm'])->name('signup');
+    Route::post('/register', [AuthController::class, 'signup'])->name('signup.post');
+});
 
 // Bình luận bài viết (yêu cầu đăng nhập)
 Route::post('/blogs/{blog}/comments', [CommentController::class, 'store'])

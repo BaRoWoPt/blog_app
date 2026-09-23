@@ -35,6 +35,7 @@
                     </form>
                 @else
                     <a href="{{ route('login') }}">Đăng nhập</a>
+                    <a href="{{ route('signup') }}">Đăng ký</a>
                 @endauth
             </nav>
         </div>

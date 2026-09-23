@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\ValidateBlogId;
+// use App\Http\Middleware\EnsureAdminAccess;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -17,6 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\EnsureAdminAccess::class,
         ]);
     })
+
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'guest' => \App\Http\Middleware\guest::class,
+        ]);
+    })
+
 
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
