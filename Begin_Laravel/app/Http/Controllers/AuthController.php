@@ -35,7 +35,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        Mail::to($user->email)->queue(new TestingMail($user));
+        Mail::to($user->email)->send(new TestingMail($user));
         $request->session()->regenerate();
 
         return redirect()->route('home')->with('success', 'Đăng ký tài khoản thành công!');
