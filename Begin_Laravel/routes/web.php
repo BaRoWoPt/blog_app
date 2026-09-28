@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\User\BlogController as UserBlogController;
 use App\Http\Middleware\ValidateBlogId;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +19,30 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
     Route::get('/register', [AuthController::class, 'showSignupForm'])->name('signup');
     Route::post('/register', [AuthController::class, 'signup'])->name('signup.post');
+
 });
 
+Route::middleware('guest')->group(function () {
+    Route::get('/forgot-password', [
+        PasswordResetController::class,
+        'showForgotForm',
+    ])->name('password.request');
+
+    Route::post('/forgot-password', [
+        PasswordResetController::class,
+        'sendResetLink',
+    ])->name('password.email');
+
+    Route::get('/reset-password/{token}', [
+        PasswordResetController::class,
+        'showResetForm',
+    ])->name('password.reset');
+
+    Route::post('/reset-password', [
+        PasswordResetController::class,
+        'reset',
+    ])->name('password.update');
+});
 // Bình luận bài viết (yêu cầu đăng nhập)
 Route::post('/blogs/{blog}/comments', [CommentController::class, 'store'])
     ->middleware('auth')
