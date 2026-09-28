@@ -24,9 +24,10 @@ class StoreCommentRequest extends FormRequest
     {
         return [
 
-            'content' => ['required', 'string', 'max:1000'],
+            'content' => ['required', 'string', 'min:3', 'max:1000'],
         ];
     }
+
     public function messages(): array
     {
         return [

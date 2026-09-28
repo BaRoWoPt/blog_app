@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Blog')</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo.svg') }}">
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
 <body>
@@ -28,6 +28,7 @@
 
                     @if (Auth::user()->isAdmin())
                         <a href="{{ route('admin.blogs.index') }}" class="admin-link">Quản trị bài viết (Admin)</a>
+                        <a href="{{ route('admin.tags.index') }}" class="admin-link">Danh mục & tags</a>
                     @endif
 
                     <form method="POST" action="{{ route('logout') }}" style="display: inline;">

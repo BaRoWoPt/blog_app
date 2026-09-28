@@ -24,7 +24,7 @@ class RegisterRequest extends FormRequest
                     ->mixedCase()      // Có cả chữ thường và CHỮ HOA
                     ->numbers()        // Có ít nhất 1 chữ số
                     ->symbols(),       // Có ít nhất 1 ký tự đặc biệt (@, #, $, %,...)
-                // 'confirmed',        // Mở ra nếu có ô nhập lại mật khẩu (password_confirmation)
+                'confirmed',        // Mở ra nếu có ô nhập lại mật khẩu (password_confirmation)
             ],
         ];
     }

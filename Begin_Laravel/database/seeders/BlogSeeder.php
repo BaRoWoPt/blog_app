@@ -18,13 +18,15 @@ class BlogSeeder extends Seeder
 
         for ($i = 1; $i <= 5; $i++) {
             DB::table('blogs')->insert([
-                'name'        => 'Tiêu đề bài blog mẫu số ' . $i,
-                'author'      => 'Tác giả ' . $i,
-                'description' => 'Nội dung chi tiết cho bài blog số ' . $i . '. ' . Str::random(100),
-                'thumbnail'   => 'images/blog_' . $i . '.jpg',
-                'user_id'     => $firstUserId,
-                'created_at'  => now(),
-                'updated_at'  => now(),
+                'name' => 'Tiêu đề bài blog mẫu số '.$i,
+                'author' => 'Tác giả '.$i,
+                'description' => 'Nội dung chi tiết cho bài blog số '.$i.'. '.Str::random(100),
+                'thumbnail' => 'images/blog_'.$i.'.jpg',
+                'tags' => 'tag'.$i,
+                'category' => 'category'.$i,
+                'user_id' => $firstUserId,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

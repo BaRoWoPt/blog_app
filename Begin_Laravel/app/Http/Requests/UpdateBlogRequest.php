@@ -29,6 +29,8 @@ class UpdateBlogRequest extends FormRequest
             // thumbnail nullable khi update: giữ ảnh cũ nếu người dùng không chọn ảnh mới
             'thumbnail' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'category_id' => ['nullable', 'exists:categories,id'],
+            'tag_ids' => ['sometimes', 'array'],
+            'tag_ids.*' => ['integer', 'distinct', 'exists:tags,id'],
         ];
     }
 }

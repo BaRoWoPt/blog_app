@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
@@ -60,6 +62,15 @@ Route::middleware('auth')->prefix('my-blogs')->name('my-blogs.')->group(function
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/blogs', [AdminBlogController::class, 'index'])->name('blogs.index');
     Route::delete('/blogs/{blog}', [AdminBlogController::class, 'destroy'])->name('blogs.destroy');
+    Route::get('/tags', [AdminTagController::class, 'index'])->name('tags.index');
+    Route::post('/tags', [AdminTagController::class, 'store'])->name('tags.store');
+    Route::put('/tags/{tag}', [AdminTagController::class, 'update'])->name('tags.update');
+    Route::delete('/tags/{tag}', [AdminTagController::class, 'destroy'])->name('tags.destroy');
+    Route::post('/categories', [AdminCategoryController::class, 'store'])->name('categories.store');
+    Route::put('/categories/{category}', [AdminCategoryController::class, 'update'])
+        ->name('categories.update');
+    Route::delete('/categories/{category}', [AdminCategoryController::class, 'destroy'])
+        ->name('categories.destroy');
 });
 
 Route::get('/blog/{id}', function ($id) {

@@ -1,8 +1,12 @@
 <?php
-namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
 
-class Blog extends Model{
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Blog extends Model
+{
     protected $fillable = [
         'name',
         'description',
@@ -11,13 +15,24 @@ class Blog extends Model{
         'user_id',
         'category_id',
     ];
-    public function user() {
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function category () {
+
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    public function comments() {
+
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

@@ -21,7 +21,25 @@
             @error('name')
                 <p class="field-error">{{ $message }}</p>
             @enderror
+            <fieldset class="tag-options">
+    <legend>Tags</legend>
 
+    @foreach ($tags as $tag)
+        <label for="blog-{{ $blog->id }}-tag-{{ $tag->id }}">
+            <input
+                id="blog-{{ $blog->id }}-tag-{{ $tag->id }}"
+                type="checkbox"
+                name="tag_ids[]"
+                value="{{ $tag->id }}"
+                @checked(in_array(
+                    $tag->id,
+                    old('tag_ids', $blog->tags->modelKeys())
+                ))
+            >
+            {{ $tag->name }}
+        </label>
+    @endforeach
+</fieldset>
             <label for="description">Nội dung</label>
             <textarea id="description" name="description">{{ old('description', $blog->description) }}</textarea>
             @error('description')

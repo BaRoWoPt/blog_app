@@ -13,6 +13,13 @@
             @if ($blog->category)
                 <span class="category-badge">{{ $blog->category->name }}</span>
             @endif
+            @if ($blog->tags->isNotEmpty())
+                <div class="blog-tags">
+                    @foreach ($blog->tags as $tag)
+                        <span class="tag-badge">{{ $tag->name }}</span>
+                    @endforeach
+                </div>
+            @endif
             <span class="blog-author">Tác giả: {{ $blog->author ?: 'Ẩn danh' }}</span>
             ·
             <time>{{ $blog->created_at?->format('d/m/Y H:i') }}</time>
@@ -38,7 +45,7 @@
             @csrf
             <div style="margin-bottom: 10px;">
                 <textarea name="content" rows="3" placeholder="Viết bình luận của bạn..." required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">{{ old('content') }}</textarea>
-                @error('user_id')
+                @error('content')
                     <p style="color: red; font-size: 0.875rem;">{{ $message }}</p>
                 @enderror
             </div>

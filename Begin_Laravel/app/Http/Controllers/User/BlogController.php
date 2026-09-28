@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,9 +19,10 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $blogs = $request->user()->blogs()->with('category')->latest()->get();
-        $categories = Category::all();
+        $categories = Category::query()->orderBy('name')->get();
+        $tags = Tag::query()->orderBy('name')->get();
 
-        return view('blog.my-blogs', compact('blogs', 'categories'));
+        return view('blog.my-blogs', compact('blogs', 'categories', 'tags'));
     }
 
     /**
@@ -29,13 +31,16 @@ class BlogController extends Controller
     public function store(StoreBlogRequest $request)
     {
         $validated = $request->validated();
+        $tagIds = $validated['tag_ids'] ?? [];
+        unset($validated['tag_ids']);
 
         if ($request->hasFile('thumbnail')) {
             $validated['thumbnail'] = $request->file('thumbnail')->store('blog-images', 'public');
         }
+        $blog = $request->user()->blogs()->create($validated);
+        $blog->tags()->sync($tagIds);
 
-        $request->user()->blogs()->create($validated);
-
+        // $request->user()->blogs()->create($validated);
         return redirect()->route('my-blogs.index')->with('success', 'Đã thêm bài viết mới thành công!');
     }
 

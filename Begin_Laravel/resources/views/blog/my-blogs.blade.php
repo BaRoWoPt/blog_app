@@ -12,8 +12,16 @@
             <h1>Bài viết của tôi</h1>
         </section>
 
-        {{-- Form tạo bài viết mới --}}
-        <form method="POST" action="{{ route('my-blogs.store') }}" enctype="multipart/form-data" class="blog-form">
+        <div class="blog-list-toolbar">
+            <h2>Danh sách bài viết bạn đã đăng ({{ $blogs->count() }})</h2>
+
+            <details class="blog-create-disclosure" @if ($errors->any()) open @endif>
+                <summary class="primary-btn blog-create-toggle">
+                    <span class="blog-create-label-closed">+ Thêm bài viết mới</span>
+                    <span class="blog-create-label-open">Đóng biểu mẫu</span>
+                </summary>
+
+                <form method="POST" action="{{ route('my-blogs.store') }}" enctype="multipart/form-data" class="blog-form">
             @csrf
 
             <label for="name">Tiêu đề</label>
@@ -35,6 +43,33 @@
                 <p class="field-error">{{ $message }}</p>
             @enderror
 
+            <fieldset class="tag-options">
+                <legend>Tags</legend>
+
+                <div class="tag-options-list">
+                    @foreach ($tags as $tag)
+                        <label class="tag-option" for="new-tag-{{ $tag->id }}">
+                        <input
+                                id="new-tag-{{ $tag->id }}"
+                                class="tag-option-input"
+                                type="checkbox"
+                                name="tag_ids[]"
+                                value="{{ $tag->id }}"
+                                @checked(in_array($tag->id, old('tag_ids', [])))
+                            >
+                            <span>{{ $tag->name }}</span>
+                        </label>
+                    @endforeach
+                </div>
+            </fieldset>
+
+            @error('tag_ids')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
+
+            @error('tag_ids.*')
+                 <p class="field-error">{{ $message }}</p>
+            @enderror
             <label for="description">Nội dung</label>
             <textarea id="description" name="description">{{ old('description') }}</textarea>
             @error('description')
@@ -54,9 +89,9 @@
             @enderror
 
             <button type="submit" class="primary-btn">Đăng bài viết</button>
-        </form>
-
-        <h2>Danh sách bài viết bạn đã đăng ({{ $blogs->count() }})</h2>
+                </form>
+            </details>
+        </div>
 
         @forelse ($blogs as $blog)
             <article class="blog-card manage-card">
