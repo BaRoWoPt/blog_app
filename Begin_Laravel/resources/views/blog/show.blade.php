@@ -37,7 +37,7 @@
     </article>
     {{-- Khối danh sách và form bình luận --}}
 <section class="comments-section" style="margin-top: 40px; border-top: 1px solid #e5e7eb; padding-top: 20px;">
-    <h2>Bình luận ({{ $blog->comments->count() }})</h2>
+    <h2>Bình luận ({{ $comments->total() }})</h2>
 
     {{-- Form gửi comment --}}
     @auth
@@ -59,7 +59,7 @@
 
     {{-- Danh sách comment --}}
     <div class="comments-list">
-        @forelse ($blog->comments as $comment)
+        @forelse ($comments as $comment)
             <div class="comment-item" style="border-bottom: 1px solid #f1f5f9; padding: 12px 0;">
                 <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 4px;">
                     <strong>{{ $comment->user->name }}</strong>
@@ -72,6 +72,7 @@
         @empty
             <p style="color: #6b7280; font-style: italic;">Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>
         @endforelse
+        {{ $comments->links() }}
     </div>
 </section>
 @endsection

@@ -9,7 +9,9 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class BlogController extends Controller
 {
@@ -18,7 +20,7 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-        $blogs = $request->user()->blogs()->with('category', 'tags')->latest()->get();
+        $blogs = $request->user()->blogs()->with('category', 'tags')->latest()->paginate(3);
         $categories = Category::query()->orderBy('name')->get();
         $tags = Tag::query()->orderBy('name')->get();
 
@@ -34,13 +36,26 @@ class BlogController extends Controller
         $tagIds = $validated['tag_ids'] ?? [];
         unset($validated['tag_ids']);
 
-        if ($request->hasFile('thumbnail')) {
-            $validated['thumbnail'] = $request->file('thumbnail')->store('blog-images', 'public');
-        }
-        $blog = $request->user()->blogs()->create($validated);
-        $blog->tags()->sync($tagIds);
+        $thumbnailPath = null;
 
-        // $request->user()->blogs()->create($validated);
+        if ($request->hasFile('thumbnail')) {
+            $thumbnailPath = $request->file('thumbnail')->store('blog-images', 'public');
+            $validated['thumbnail'] = $thumbnailPath;
+        }
+
+        try {
+            DB::transaction(function () use ($request, $validated, $tagIds): void {
+                $blog = $request->user()->blogs()->create($validated);
+                $blog->tags()->sync($tagIds);
+            });
+        } catch (Throwable $exception) {
+            if ($thumbnailPath !== null) {
+                Storage::disk('public')->delete($thumbnailPath);
+            }
+
+            throw $exception;
+        }
+
         return redirect()->route('my-blogs.index')->with('success', 'Đã thêm bài viết mới thành công!');
     }
 
@@ -55,12 +70,12 @@ class BlogController extends Controller
         }
 
         $validated = $request->validated();
+        $oldThumbnailPath = $blog->thumbnail;
+        $newThumbnailPath = null;
 
         if ($request->hasFile('thumbnail')) {
-            if ($blog->thumbnail) {
-                Storage::disk('public')->delete($blog->thumbnail);
-            }
-            $validated['thumbnail'] = $request->file('thumbnail')->store('blog-images', 'public');
+            $newThumbnailPath = $request->file('thumbnail')->store('blog-images', 'public');
+            $validated['thumbnail'] = $newThumbnailPath;
         } else {
             unset($validated['thumbnail']);
         }
@@ -68,8 +83,22 @@ class BlogController extends Controller
         $tagIds = $validated['tag_ids'] ?? [];
         unset($validated['tag_ids']);
 
-        $blog->update($validated);
-        $blog->tags()->sync($tagIds);
+        try {
+            DB::transaction(function () use ($blog, $validated, $tagIds): void {
+                $blog->update($validated);
+                $blog->tags()->sync($tagIds);
+            });
+        } catch (Throwable $exception) {
+            if ($newThumbnailPath !== null) {
+                Storage::disk('public')->delete($newThumbnailPath);
+            }
+
+            throw $exception;
+        }
+
+        if ($newThumbnailPath !== null && $oldThumbnailPath !== null) {
+            Storage::disk('public')->delete($oldThumbnailPath);
+        }
 
         return redirect()->route('my-blogs.index')->with('success', 'Cập nhật bài viết thành công!');
     }

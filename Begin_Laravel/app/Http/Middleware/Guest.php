@@ -7,16 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class guest
+class Guest
 {
     /**
      * Handle an incoming request.
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-       $guards = empty($guards) ? [null] : $guards;
+        $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             // Nếu người dùng đã đăng nhập ở bất kỳ guard nào

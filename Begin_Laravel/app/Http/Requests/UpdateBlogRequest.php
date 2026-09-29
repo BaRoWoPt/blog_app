@@ -24,6 +24,7 @@ class UpdateBlogRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'status' => ['required', 'in:draft,published'],
             'description' => ['nullable', 'string'],
             'author' => ['nullable', 'string', 'max:255'],
             // thumbnail nullable khi update: giữ ảnh cũ nếu người dùng không chọn ảnh mới

@@ -30,6 +30,15 @@
                 <p class="field-error">{{ $message }}</p>
             @enderror
 
+            <label for="status">Trạng thái</label>
+            <select id="status" name="status" required>
+                <option value="draft" @selected(old('status', 'draft') === 'draft')>Bản nháp</option>
+                <option value="published" @selected(old('status') === 'published')>Xuất bản</option>
+            </select>
+            @error('status')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
+
             <label for="category_id">Danh mục</label>
             <select id="category_id" name="category_id">
                 <option value="">Chọn danh mục</option>
@@ -96,6 +105,7 @@
         @forelse ($blogs as $blog)
             <article class="blog-card manage-card">
                 <h3>{{ $blog->name }}</h3>
+                <p>Trạng thái: <strong>{{ $blog->status === 'published' ? 'Đã xuất bản' : 'Bản nháp' }}</strong></p>
 
                 @if ($blog->thumbnail)
                     <img src="{{ asset('storage/' . $blog->thumbnail) }}" alt="{{ $blog->name }}" class="blog-image">
@@ -113,6 +123,12 @@
                         type="text"
                         value="{{ $blog->name }}"
                     >
+
+                    <label for="status-{{ $blog->id }}">Trạng thái</label>
+                    <select id="status-{{ $blog->id }}" name="status" required>
+                        <option value="draft" @selected(old('status', $blog->status) === 'draft')>Bản nháp</option>
+                        <option value="published" @selected(old('status', $blog->status) === 'published')>Xuất bản</option>
+                    </select>
 
                     <label for="category-{{ $blog->id }}">Danh mục</label>
                     <select id="category-{{ $blog->id }}" name="category_id">

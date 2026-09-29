@@ -71,6 +71,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         ->name('categories.update');
     Route::delete('/categories/{category}', [AdminCategoryController::class, 'destroy'])
         ->name('categories.destroy');
+    Route::patch('/blogs/{blog}/status', [AdminBlogController::class, 'updateStatus'])
+        ->name('blogs.status');
 });
 
 Route::get('/blog/{id}', function ($id) {

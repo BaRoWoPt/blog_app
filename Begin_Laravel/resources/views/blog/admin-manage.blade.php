@@ -12,7 +12,7 @@
             <h1>Quản trị tất cả bài viết trong hệ thống</h1>
         </section>
 
-        <h2>Tổng số bài viết: {{ $blogs->count() }}</h2>
+        <h2>Tổng số bài viết: {{ $blogs->total() }}</h2>
 
         @forelse ($blogs as $blog)
             <article class="blog-card manage-card" style="margin-bottom: 24px; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;">

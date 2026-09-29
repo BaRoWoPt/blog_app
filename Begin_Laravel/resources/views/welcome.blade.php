@@ -42,9 +42,19 @@
             <div class="category-filter-actions">
                 <button type="submit" class="primary-btn">Lọc bài viết</button>
 
-                @if ($categorySlug)
+                @if ($searchQuery !== '' || $categorySlug)
                     <a href="{{ route('home') }}" class="category-filter-reset">Xóa lọc</a>
                 @endif
+            </div>
+            <div class="category-filter-search">
+                <label for="q">Tìm kiếm</label>
+                <input
+                    type="text"
+                    id="q"
+                    name="q"
+                    value="{{ $searchQuery }}"
+                    placeholder="Nhập từ khóa tìm kiếm..."
+                >
             </div>
 
             @error('category')
