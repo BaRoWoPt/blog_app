@@ -12,7 +12,7 @@ class AdminDeleteBlogRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()?->isAdmin() ?? false;
     }
 
     /**
@@ -23,7 +23,16 @@ class AdminDeleteBlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'reason' => ['required', 'string', 'min:10', 'max:255']
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'reason.required' => 'Lý do xóa bài viết là bắt buộc.',
+            'reason.string' => 'Lý do xóa bài viết phải là một chuỗi.',
+            'reason.min' => 'Lý do xóa bài viết phải có ít nhất :min ký tự.',
+            'reason.max' => 'Lý do xóa bài viết không được vượt quá :max ký tự.',
         ];
     }
 }

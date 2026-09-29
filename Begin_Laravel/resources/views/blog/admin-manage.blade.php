@@ -53,17 +53,40 @@
                 </div>
 
                 {{-- Nút xóa bài viết cho admin --}}
-                <div style="margin-top: 16px; border-top: 1px solid #f3f4f6; padding-top: 12px; display: flex; justify-content: flex-end;">
-                    <form method="POST" action="{{ route('admin.blogs.destroy', $blog) }}" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này của {{ $blog->user?->name }} không?');">
-                        @csrf
-                        @method('DELETE')
+                <div class="admin-delete-section">
+                    <form
+                        class="admin-delete-form"
+    method="POST"
+    action="{{ route('admin.blogs.destroy', $blog) }}"
+    onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');"
+>
+    @csrf
+    @method('DELETE')
+
+                        <div class="admin-delete-field">
+                            <label for="reason-{{ $blog->id }}">Lý do xóa bài viết</label>
+                            <textarea
+                                id="reason-{{ $blog->id }}"
+                                name="reason"
+                                rows="3"
+                                required
+                                minlength="10"
+                                maxlength="255"
+                                placeholder="Nhập lý do để gửi cho người đăng..."
+                            >{{ old('reason') }}</textarea>
+                        </div>
 
                         <button type="submit" class="danger-btn">Xóa bài viết vi phạm</button>
-                    </form>
+
+                        @error('reason')
+                            <p class="field-error">{{ $message }}</p>
+                        @enderror
+</form>
                 </div>
             </article>
         @empty
             <p class="empty-state">Hệ thống chưa có bài viết nào.</p>
         @endforelse
+        {{ $blogs->links() }}
     </div>
 @endsection
