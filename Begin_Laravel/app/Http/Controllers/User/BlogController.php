@@ -18,7 +18,7 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-        $blogs = $request->user()->blogs()->with('category')->latest()->get();
+        $blogs = $request->user()->blogs()->with('category', 'tags')->latest()->get();
         $categories = Category::query()->orderBy('name')->get();
         $tags = Tag::query()->orderBy('name')->get();
 
@@ -65,7 +65,11 @@ class BlogController extends Controller
             unset($validated['thumbnail']);
         }
 
+        $tagIds = $validated['tag_ids'] ?? [];
+        unset($validated['tag_ids']);
+
         $blog->update($validated);
+        $blog->tags()->sync($tagIds);
 
         return redirect()->route('my-blogs.index')->with('success', 'Cập nhật bài viết thành công!');
     }

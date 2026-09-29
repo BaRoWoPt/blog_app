@@ -124,6 +124,26 @@
                         @endforeach
                     </select>
 
+                    <fieldset class="tag-options">
+                        <legend>Tags</legend>
+
+                        <div class="tag-options-list">
+                            @foreach ($tags as $tag)
+                                <label class="tag-option" for="edit-blog-{{ $blog->id }}-tag-{{ $tag->id }}">
+                                    <input
+                                        id="edit-blog-{{ $blog->id }}-tag-{{ $tag->id }}"
+                                        class="tag-option-input"
+                                        type="checkbox"
+                                        name="tag_ids[]"
+                                        value="{{ $tag->id }}"
+                                        @checked($blog->tags->contains('id', $tag->id))
+                                    >
+                                    <span>{{ $tag->name }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </fieldset>
+
                     <label for="description-{{ $blog->id }}">Nội dung</label>
                     <textarea
                         id="description-{{ $blog->id }}"
