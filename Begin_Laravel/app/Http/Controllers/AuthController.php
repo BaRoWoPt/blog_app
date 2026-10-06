@@ -8,7 +8,6 @@ use App\Mail\TestingMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
@@ -27,14 +26,8 @@ class AuthController extends Controller
 
     public function signup(RegisterRequest $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'user',
-
-        ]);
-
+        $validated = $request->validated();
+        $user = User::create($validated);
         Auth::login($user);
         Mail::to($user->email)->send(new TestingMail($user));
         $request->session()->regenerate();

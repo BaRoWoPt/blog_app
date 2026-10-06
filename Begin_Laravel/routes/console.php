@@ -11,3 +11,9 @@ Artisan::command('inspire', function () {
 
 // Mỗi ngày lúc 08:00, dispatch job gửi email nhắc nhở vào queue "reminders"
 Schedule::job(new SendReminderEmailJob)->dailyAt('08:00');
+
+// Tự động chạy queue worker mỗi phút để xử lý các job (gửi mail, thông báo,...)
+Schedule::command('queue:work --queue=default,reminders --stop-when-empty')
+    ->everyMinute()
+    ->withoutOverlapping();
+

@@ -11,10 +11,8 @@ class CommentController extends Controller
 {
     public function store(StoreCommentRequest $request, Blog $blog)
     {
-        $comment = $blog->comments()->create([
-            "user_id"=> $request->user()->id,
-            "content"=> $request->validated()['content'],
-        ]);
+        $validated = $request->validated();
+        $blog->comments()->create($validated);
 
         return redirect()
             ->route('blog.show', $blog)

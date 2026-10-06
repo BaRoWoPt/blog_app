@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -36,5 +37,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('auth-sensitive', function (Request $request) {
             return Limit::perMinute(5)->by($request->ip());
         });
+
+        Model::preventLazyLoading(!app()->isProduction());
     }
 }
