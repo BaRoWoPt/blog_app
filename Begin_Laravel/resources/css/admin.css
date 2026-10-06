@@ -201,6 +201,33 @@
     gap: 12px;
 }
 
+.blog-select-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.blog-select-field {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+}
+
+.admin-page .blog-select-field label {
+    margin-top: 0;
+}
+
+.admin-page .blog-select-field select {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 0 10px;
+    border: 1px solid rgba(148, 163, 184, 0.8);
+    border-radius: 8px;
+    background: #fff;
+    font: inherit;
+}
+
 .admin-page .delete-form {
     margin-top: 14px;
 }
@@ -566,6 +593,10 @@
 }
 
 @media (max-width: 420px) {
+    .blog-select-row {
+        grid-template-columns: 1fr;
+    }
+
     .admin-delete-form {
         grid-template-columns: minmax(0, 1fr);
     }

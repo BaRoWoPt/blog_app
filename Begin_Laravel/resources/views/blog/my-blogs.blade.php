@@ -30,27 +30,33 @@
                 <p class="field-error">{{ $message }}</p>
             @enderror
 
-            <label for="status">Trạng thái</label>
-            <select id="status" name="status" required>
-                <option value="draft" @selected(old('status', 'draft') === 'draft')>Bản nháp</option>
-                <option value="published" @selected(old('status') === 'published')>Xuất bản</option>
-            </select>
-            @error('status')
-                <p class="field-error">{{ $message }}</p>
-            @enderror
+            <div class="blog-select-row">
+                <div class="blog-select-field">
+                    <label for="status">Trạng thái</label>
+                    <select id="status" name="status" required>
+                        <option value="draft" @selected(old('status', 'draft') === 'draft')>Bản nháp</option>
+                        <option value="published" @selected(old('status') === 'published')>Xuất bản</option>
+                    </select>
+                    @error('status')
+                        <p class="field-error">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <label for="category_id">Danh mục</label>
-            <select id="category_id" name="category_id">
-                <option value="">Chọn danh mục</option>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                        {{ $category->name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('category_id')
-                <p class="field-error">{{ $message }}</p>
-            @enderror
+                <div class="blog-select-field">
+                    <label for="category_id">Danh mục</label>
+                    <select id="category_id" name="category_id">
+                        <option value="">Chọn danh mục</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <p class="field-error">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
 
             <fieldset class="tag-options">
                 <legend>Tags</legend>
@@ -124,21 +130,27 @@
                         value="{{ $blog->name }}"
                     >
 
-                    <label for="status-{{ $blog->id }}">Trạng thái</label>
-                    <select id="status-{{ $blog->id }}" name="status" required>
-                        <option value="draft" @selected(old('status', $blog->status) === 'draft')>Bản nháp</option>
-                        <option value="published" @selected(old('status', $blog->status) === 'published')>Xuất bản</option>
-                    </select>
+                    <div class="blog-select-row">
+                        <div class="blog-select-field">
+                            <label for="status-{{ $blog->id }}">Trạng thái</label>
+                            <select id="status-{{ $blog->id }}" name="status" required>
+                                <option value="draft" @selected(old('status', $blog->status) === 'draft')>Bản nháp</option>
+                                <option value="published" @selected(old('status', $blog->status) === 'published')>Xuất bản</option>
+                            </select>
+                        </div>
 
-                    <label for="category-{{ $blog->id }}">Danh mục</label>
-                    <select id="category-{{ $blog->id }}" name="category_id">
-                        <option value="">Chọn danh mục</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ $blog->category_id == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                        <div class="blog-select-field">
+                            <label for="category-{{ $blog->id }}">Danh mục</label>
+                            <select id="category-{{ $blog->id }}" name="category_id">
+                                <option value="">Chọn danh mục</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ $blog->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
                     <fieldset class="tag-options">
                         <legend>Tags</legend>
