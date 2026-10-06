@@ -118,6 +118,7 @@
                 @endif
 
                 {{-- Form cập nhật bài viết --}}
+                @can('update', $blog)
                 <form method="POST" action="{{ route('my-blogs.update', $blog) }}" enctype="multipart/form-data" class="inline-form">
                     @csrf
                     @method('PUT')
@@ -191,14 +192,17 @@
 
                     <button type="submit" class="secondary-btn">Cập nhật</button>
                 </form>
+                @endcan
 
                 {{-- Nút xóa bài viết --}}
+                @can('delete', $blog)
                 <form method="POST" action="{{ route('my-blogs.destroy', $blog) }}" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" class="delete-form">
                     @csrf
                     @method('DELETE')
 
                     <button type="submit" class="danger-btn">Xóa bài viết</button>
                 </form>
+                @endcan
             </article>
         @empty
             <p class="empty-state">Bạn chưa đăng bài viết nào.</p>

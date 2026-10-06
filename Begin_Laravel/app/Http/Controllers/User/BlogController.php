@@ -51,10 +51,7 @@ class BlogController extends Controller
      */
     public function update(UpdateBlogRequest $request, Blog $blog)
     {
-        // Chặn nếu không phải chủ sở hữu bài viết
-        if ($blog->user_id !== $request->user()->id) {
-            abort(403, 'Bạn không có quyền chỉnh sửa bài viết của người khác.');
-        }
+        $this->authorize('update', $blog);
 
         $validated = $request->validated();
         $tagIds    = $validated['tag_ids'] ?? [];
@@ -75,10 +72,7 @@ class BlogController extends Controller
      */
     public function destroy(Request $request, Blog $blog)
     {
-        // Chặn nếu không phải chủ sở hữu bài viết
-        if ($blog->user_id !== $request->user()->id) {
-            abort(403, 'Bạn không có quyền xóa bài viết của người khác.');
-        }
+        $this->authorize('delete', $blog);
 
         $this->blogService->delete($blog);
 

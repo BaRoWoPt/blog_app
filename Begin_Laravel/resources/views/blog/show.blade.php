@@ -61,12 +61,24 @@
     <div class="comments-list">
         @forelse ($comments as $comment)
             <div class="comment-item" style="border-bottom: 1px solid #f1f5f9; padding: 12px 0;">
-                <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 4px;">
-                    <strong>{{ $comment->user->name }}</strong>
-                    · <time>{{ $comment->created_at->diffForHumans() }}</time>
+                <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>{{ $comment->user->name }}</strong>
+                        · <time>{{ $comment->created_at->diffForHumans() }}</time>
+                    </div>
+
+                    @can('delete', $comment)
+                        <form action="{{ route('comments.destroy', $comment) }}" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa bình luận này không?');" style="margin: 0;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 0.8rem; padding: 0;">
+                                Xóa
+                            </button>
+                        </form>
+                    @endcan
                 </div>
                 <div style="color: #1f2937;">
-                    {{ $comment->content }}
+                    {!! nl2br(e($comment->content)) !!}
                 </div>
             </div>
         @empty

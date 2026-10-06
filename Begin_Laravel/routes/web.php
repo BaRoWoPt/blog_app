@@ -20,8 +20,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
     Route::get('/register', [AuthController::class, 'showSignupForm'])->name('signup');
-    Route::post('/register', [AuthController::class, 'signup'])->name('signup.post');
-
+    Route::post('/register', [AuthController::class, 'signup'])
+        ->middleware('throttle:auth-sensitive')
+        ->name('signup.post');
 });
 
 Route::middleware('guest')->group(function () {
@@ -33,7 +34,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/forgot-password', [
         PasswordResetController::class,
         'sendResetLink',
-    ])->name('password.email');
+    ])->middleware('throttle:auth-sensitive')->name('password.email');
 
     Route::get('/reset-password/{token}', [
         PasswordResetController::class,
@@ -43,17 +44,23 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [
         PasswordResetController::class,
         'reset',
-    ])->name('password.update');
+    ])->middleware('throttle:auth-sensitive')->name('password.update');
 });
 // Bình luận bài viết (yêu cầu đăng nhập)
 Route::post('/blogs/{blog}/comments', [CommentController::class, 'store'])
-    ->middleware('auth')
+    ->middleware(['auth', 'throttle:comments'])
     ->name('comments.store');
+
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('comments.destroy');
 
 // Người dùng quản lý bài viết của chính mình
 Route::middleware('auth')->prefix('my-blogs')->name('my-blogs.')->group(function () {
     Route::get('/', [UserBlogController::class, 'index'])->name('index');
-    Route::post('/', [UserBlogController::class, 'store'])->name('store');
+    Route::post('/', [UserBlogController::class, 'store'])
+        ->middleware('throttle:posts')
+        ->name('store');
     Route::put('/{blog}', [UserBlogController::class, 'update'])->name('update');
     Route::delete('/{blog}', [UserBlogController::class, 'destroy'])->name('destroy');
 });
